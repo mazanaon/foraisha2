@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Aisha - My Valentine</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;400;600&display=swap');
+
+        :root {
+            --hot-pink: #ff4d6d;
+            --soft-pink: #ffb3c1;
+            --glass-white: rgba(255, 255, 255, 0.85);
+            --cat-black: #1a1a1a;
+            --patch: #e9f5ec;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
+            font-family: 'Quicksand', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .card {
+            display: none;
+            width: 90%;
+            max-width: 450px;
+            background: var(--glass-white);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            position: absolute;
+            animation: slideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        .card.active { display: block; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .cat-delivery {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 15px;
+        }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: var(--hot-pink); margin-bottom: 15px; }
+        p { line-height: 1.6; font-size: 1rem; color: #555; margin-bottom: 20px; }
+        .highlight { color: var(--hot-pink); font-weight: 600; }
+
+        .btn-box {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        button {
+            background: var(--hot-pink);
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
+        }
+
+        button:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(255, 77, 109, 0.4); }
+
+        .box-icon { font-size: 4rem; cursor: pointer; transition: 0.3s; margin: 15px 0; display: block; }
+        .box-icon:hover { transform: rotate(10deg) scale(1.1); }
+
+        .particle {
+            position: fixed;
+            top: -10px;
+            pointer-events: none;
+            z-index: 0;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="particles-container"></div>
+
+    <div id="layer-1" class="card active">
+        <h1>To my love.</h1>
+        <p>Since I couldn't be there to hand-deliver your Valentine's gifts, I sent someone small, fast, and very determined to find you.</p>
+        <div class="btn-box">
+            <button onclick="next(2)">Check the door</button>
+        </div>
+    </div>
+
+    <div id="layer-2" class="card">
+        <div class="cat-delivery">
+            <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="60" cy="75" r="30" fill="#1a1a1a"/>
+                <path d="M40,55 L32,30 L55,50 Z" fill="#1a1a1a"/>
+                <path d="M80,55 L88,30 L65,50 Z" fill="#1a1a1a"/>
+                <circle cx="48" cy="70" r="7" fill="#e9f5ec" opacity="0.8"/>
+                <circle cx="70" cy="90" r="5" fill="#e9f5ec" opacity="0.6"/>
+                <circle cx="52" cy="75" r="2" fill="#e9f5ec"/>
+                <circle cx="68" cy="75" r="2" fill="#e9f5ec"/>
+                <g transform="translate(50, 85)">
+                    <path d="M5,0 L12,20 M10,0 L8,20" stroke="#2d6a4f" stroke-width="2"/>
+                    <circle cx="3" cy="0" r="5" fill="#ff4d6d"/>
+                    <circle cx="12" cy="2" r="5" fill="#ff4d6d"/>
+                    <circle cx="8" cy="-3" r="5" fill="#ff4d6d"/>
+                </g>
+                <circle cx="50" cy="95" r="4" fill="#1a1a1a"/>
+                <circle cx="70" cy="95" r="4" fill="#1a1a1a"/>
+            </svg>
+        </div>
+        <p>Our little friend made it! He’s been guarding these <span class="highlight">roses</span> for you all the way to the mountains.</p>
+        <p>He also has a package that requires your signature...</p>
+        <div class="btn-box">
+            <button onclick="next(3)">Open Package</button>
+        </div>
+    </div>
+
+    <div id="layer-3" class="card">
+        <span class="box-icon" id="gift" onclick="reveal()">🎁</span>
+        <div id="revealed-gifts" style="display:none; margin: 20px 0; font-size: 3rem;">
+            🍫💖🍓
+        </div>
+        <p id="gift-text">The mountains might be cold, but I hope these make things a little sweeter.</p>
+        <div class="btn-box">
+            <button id="gift-btn" style="display:none;" onclick="next(4)">One more thing</button>
+        </div>
+    </div>
+
+    <div id="layer-4" class="card">
+        <h1>Beyond the Gifts</h1>
+        <p>They say the air is thinner up in the mountains, but honestly, you’ve been taking my breath away from down here anyway.</p>
+        <p><span class="highlight">I Love You</span></p>
+        <p>I'm not just here for the easy days. I’m here for the ones where we need tough conversations, the ones when we seem distant, and the ones where you need space. I will strive to protect what we have with all my might, because <span class="highlight">YOU are the person i truly love.</span></p>
+        
+        <div class="btn-box">
+            <button onclick="next(5)">Final Note</button>
+        </div>
+    </div>
+
+    <div id="layer-5" class="card">
+        <h1>Happy Valentine's, Aisha</h1>
+        <p>Enjoy the views and the time with your family. The flowers on your screen are just a placeholder until I can give you the real ones.</p>
+        <p>Stay safe, stay warm, and hurry back.</p>
+        <p style="font-size: 2rem;">❄️🌹🏔️</p>
+    </div>
+
+    <script>
+        function next(n) {
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+            document.getElementById('layer-' + n).classList.add('active');
+        }
+
+        function reveal() {
+            document.getElementById('gift').style.display = 'none';
+            document.getElementById('revealed-gifts').style.display = 'block';
+            document.getElementById('gift-text').innerText = "Virtual chocolates and treats, delivered to Kashmir!";
+            document.getElementById('gift-btn').style.display = 'inline-block';
+        }
+
+        const container = document.getElementById('particles-container');
+        function createParticle() {
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            const isHeart = Math.random() > 0.5;
+            p.innerHTML = isHeart ? '💗' : '❄️';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            
+            const duration = Math.random() * 3 + 4;
+            p.style.animationDuration = duration + 's';
+            p.style.opacity = Math.random() * 0.7 + 0.3;
+
+            container.appendChild(p);
+            setTimeout(() => p.remove(), duration * 1000);
+        }
+
+        setInterval(createParticle, 200);
+    </script>
+</body>
+</html>
